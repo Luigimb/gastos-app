@@ -6,15 +6,22 @@ import { useParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 const categories = [
-  "Mercado",
-  "Cena fuera",
-  "Cine",
-  "Transporte",
-  "Compras",
-  "Ocio",
-  "Casa",
-  "Otros",
+  "🛒 Mercado",
+  "🍽️ Cena fuera",
+  "🎬 Cine",
+  "🚌 Transporte",
+  "🛍️ Compras",
+  "🎉 Ocio",
+  "🏠 Casa",
+  "💊 Salud",
+  "☕️ Café",
+  "💼 Trabajo",
+  "✈️ Viaje",
+  "🎁 Regalos",
+  "📺 Suscripciones",
+  "📌 Otros",
 ];
+
 
 export default function EditExpensePage() {
   const supabase = createClient();
