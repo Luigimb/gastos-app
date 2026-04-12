@@ -6,22 +6,29 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 const categories = [
-    "Mercado",
-    "Cena fuera",
-    "Cine",
-    "Transporte",
-    "Compras",
-    "Ocio",
-    "Casa",
-    "Otros",
+  "🛒 Mercado",
+  "🍽️ Cena fuera",
+  "🎬 Cine",
+  "🚌 Transporte",
+  "🛍️ Compras",
+  "🎉 Ocio",
+  "🏠 Casa",
+  "💊 Salud",
+  "☕️ Café",
+  "💼 Trabajo",
+  "✈️ Viaje",
+  "🎁 Regalos",
+  "📺 Suscripciones",
+  "📌 Otros",
 ];
+
 
 export default function NewExpensePage() {
     const supabase = createClient();
     const router = useRouter();
 
     const [amount, setAmount] = useState("");
-    const [category, setCategory] = useState("Mercado");
+    const [category, setCategory] = useState("🛒 Mercado");
     const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
     const [note, setNote] = useState("");
     const [message, setMessage] = useState("");
@@ -54,7 +61,7 @@ export default function NewExpensePage() {
 
         setMessage("Gasto guardado ✅");
         setAmount("");
-        setCategory("Mercado");
+        setCategory("🛒 Mercado");
         setDate(new Date().toISOString().slice(0, 10));
         setNote("");
 
