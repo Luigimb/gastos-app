@@ -1,3 +1,4 @@
+import DeleteExpenseButton from "@/components/delete-expense-button"
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
@@ -90,37 +91,17 @@ export default async function ExpensesPage() {
 
                  <p className="font-bold">{formatCurrency(Number(expense.amount))}</p>
                 </div>
-
                 <div className="mt-4 flex gap-3">
-                <Link
+                  <Link
                     href={`/expenses/${expense.id}/edit`}
                     className="text-sm text-neutral-600 underline hover:text-neutral-900"
                   >
                     Editar
                   </Link>
-                </div>
+
+                  <DeleteExpenseButton expenseId={expense.id} />
+                </div>         
               </div>
-
-              // <div
-              //   key={expense.id}
-              //   className="rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm"
-              // >
-              //   <div className="flex items-start justify-between gap-4">
-              //     <div>
-              //       <p className="font-semibold">{expense.category}</p>
-              //       <p className="text-sm text-neutral-600">{expense.date}</p>
-              //       {expense.note ? (
-              //         <p className="mt-1 text-sm text-neutral-500">
-              //           {expense.note}
-              //         </p>
-              //       ) : null}
-              //     </div>
-
-              //     <p className="font-bold">
-              //       {formatCurrency(Number(expense.amount))}
-              //     </p>
-              //   </div>
-              // </div>
             ))}
           </div>
         )}
