@@ -34,9 +34,42 @@ export default function ImportPage() {
       header: true,
       skipEmptyLines: true,
       complete: (results) => {
-        setRows(results.data);
-        setMessage(`Archivo cargado: ${results.data.length} filas detectadas.`);
-      },
+        const parsedRows = results.data;
+
+        const invalid: InvalidRow[] = parsedRows
+            .map((row, index) => {
+                if (!row.date?.trim()) {
+                 return { index: index + 1, reason: "Falta la fecha", row };
+                }
+
+                if (!row.category?.trim()) {
+                 return { index: index + 1, reason: "Falta la categoría", row };
+                }
+
+                if (!row.amount?.trim()) {
+                 return { index: index + 1, reason: "Falta el importe", row };
+                }
+
+                if (Number.isNaN(Number(row.amount))) {
+                 return { index: index + 1, reason: "El importe no es válido", row };
+                }
+
+                return null;
+            })
+            .filter((item): item is InvalidRow => item !== null);
+
+        setRows(parsedRows);
+        setInvalidRows(invalid);
+
+        if (invalid.length > 0) {
+            setMessage(
+                `Archivo cargado con ${parsedRows.length} filas, pero hay ${invalid.length} filas inválidas.`
+            );
+        } else {
+            setMessage(`Archivo cargado: ${parsedRows.length} filas válidas.`);
+        }
+    },
+
       error: () => {
         setMessage("No se pudo leer el archivo CSV.");
       },
