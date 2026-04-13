@@ -175,6 +175,28 @@ return (
           {message ? (
             <p className="mt-4 text-sm text-neutral-600">{message}</p>
           ) : null}
+          {invalidRows.length > 0 ? (
+            <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4">
+                <p className="text-sm font-medium text-red-700">
+                    Hay filas con errores en el archivo:
+                </p>
+
+                <ul className="mt-2 space-y-1 text-sm text-red-600">
+                {invalidRows.slice(0, 5).map((item) => (
+                    <li key={item.index}>
+                        Fila {item.index}: {item.reason}
+                    </li>
+                    ))}
+                </ul>
+
+                {invalidRows.length > 5 ? (
+                    <p className="mt-2 text-xs text-red-500">
+                         Mostrando solo los primeros 5 errores.
+                    </p>
+                ) : null}
+            </div>
+        ) : null}
+
         </div>
 
         {rows.length > 0 ? (
