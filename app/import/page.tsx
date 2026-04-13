@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import Papa from "papaparse";
+import { createClient } from "@/lib/supabase/client";
 
 type ParsedExpense = {
   date: string;
@@ -12,8 +13,11 @@ type ParsedExpense = {
 };
 
 export default function ImportPage() {
+  const supabase = createClient();
+
   const [rows, setRows] = useState<ParsedExpense[]>([]);
   const [message, setMessage] = useState("");
+  const [isImporting, setIsImporting] = useState(false);
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
@@ -33,7 +37,46 @@ export default function ImportPage() {
     });
   }
 
-  return (
+  async function handleImport() {
+    if (rows.length === 0) {
+      setMessage("No hay filas para importar.");
+      return;
+    }
+
+    setIsImporting(true);
+    setMessage("Importando gastos...");
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      setMessage("No hay sesión activa.");
+      setIsImporting(false);
+      return;
+    }
+
+    const preparedRows = rows.map((row) => ({
+      user_id: user.id,
+      date: row.date,
+      category: row.category,
+      amount: Number(row.amount),
+      note: row.note?.trim() ? row.note : null,
+    }));
+
+    const { error } = await supabase.from("expenses").insert(preparedRows);
+
+    if (error) {
+      setMessage("Error al importar los gastos.");
+      setIsImporting(false);
+      return;
+    }
+
+    setMessage(`Importación completada ✅ (${preparedRows.length} gastos)`);
+    setRows([]);
+    setIsImporting(false);
+  }
+return (
     <main className="min-h-screen bg-neutral-50 p-6 text-neutral-900">
       <div className="mx-auto max-w-2xl">
         <Link
@@ -92,9 +135,19 @@ export default function ImportPage() {
             <p className="mt-4 text-xs text-neutral-500">
               Mostrando las primeras 10 filas del archivo.
             </p>
+
+            <button
+              type="button"
+              onClick={handleImport}
+              disabled={isImporting}
+              className="mt-6 rounded-xl bg-neutral-900 px-4 py-3 text-white hover:bg-neutral-800 disabled:opacity-60"
+            >
+              {isImporting ? "Importando..." : "Importar gastos"}
+            </button>
           </div>
         ) : null}
       </div>
     </main>
   );
 }
+
