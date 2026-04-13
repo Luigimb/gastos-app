@@ -20,9 +20,10 @@ type InvalidRow = {
 export default function ImportPage() {
   const supabase = createClient();
 
-  const [rows, setRows] = useState<ParsedExpense[]>([]);
-  const [message, setMessage] = useState("");
-  const [isImporting, setIsImporting] = useState(false);
+    const [rows, setRows] = useState<ParsedExpense[]>([]);
+    const [invalidRows, setInvalidRows] = useState<InvalidRow[]>([]);
+    const [message, setMessage] = useState("");
+    const [isImporting, setIsImporting] = useState(false);
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
