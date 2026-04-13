@@ -85,6 +85,12 @@ export default async function Home() {
             >
               Ver resumen
             </Link>
+            <Link
+              href="/import"
+              className="block rounded-xl border border-neutral-300 px-4 py-3 text-center hover:bg-neutral-100"
+            >
+              Importar gastos
+            </Link>
           </div>
         </div>
 
