@@ -11,6 +11,11 @@ type ParsedExpense = {
   amount: string;
   note?: string;
 };
+type InvalidRow = {
+  index: number;
+  reason: string;
+  row: ParsedExpense;
+};
 
 export default function ImportPage() {
   const supabase = createClient();
