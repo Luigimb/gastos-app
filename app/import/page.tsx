@@ -110,6 +110,17 @@ return (
         2026-04-10,🛒 Mercado,32.50,Compra semanal
         2026-04-11,☕️ Café,1.80,Café por la mañana`}</pre>
         </div>
+        <a
+            href={`data:text/csv;charset=utf-8,${encodeURIComponent(
+                `date,category,amount,note
+            2026-04-10,🛒 Mercado,32.50,Compra semanal
+            2026-04-11,☕️ Café,1.80,Café por la mañana`
+                )}`}
+                download="ejemplo-gastos.csv"
+                className="mt-4 inline-block rounded-xl border border-neutral-300 px-4 py-2 text-sm hover:bg-neutral-100"
+            >
+                Descargar CSV de ejemplo
+        </a>
         </div>
 
 
