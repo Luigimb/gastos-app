@@ -165,12 +165,19 @@ return (
 
         <div className="mt-8 rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
           <label className="block text-sm font-medium">Archivo CSV</label>
-          <input
+
+        <label className="mt-3 flex cursor-pointer items-center justify-center rounded-2xl border border-dashed border-neutral-300 bg-neutral-50 px-4 py-8 text-center hover:bg-neutral-100">
+            <span className="text-sm text-neutral-600">
+                Haz clic aquí para seleccionar un archivo CSV
+            </span>
+
+            <input
             type="file"
             accept=".csv"
             onChange={handleFileChange}
-            className="mt-3 block w-full text-sm"
-          />
+            className="hidden"
+            />
+        </label>
 
           {message ? (
             <p className="mt-4 text-sm text-neutral-600">{message}</p>
