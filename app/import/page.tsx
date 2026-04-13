@@ -88,8 +88,30 @@ return (
 
         <h1 className="text-3xl font-bold">Importar gastos</h1>
         <p className="mt-2 text-sm text-neutral-600">
-          Sube un archivo CSV con columnas: date, category, amount, note
+            Sube un archivo CSV con columnas: <strong>date</strong>,{" "}
+            <strong>category</strong>, <strong>amount</strong>, <strong>note</strong>.
         </p>
+
+        <div className="mt-4 rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
+        <p className="text-sm font-medium">Formato esperado</p>
+        <p className="mt-2 text-sm text-neutral-600">
+            El archivo debe incluir estas columnas:
+        </p>
+
+        <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-neutral-600">
+            <li><strong>date</strong>: fecha en formato YYYY-MM-DD</li>
+            <li><strong>category</strong>: categoría del gasto</li>
+            <li><strong>amount</strong>: importe numérico</li>
+            <li><strong>note</strong>: nota opcional</li>
+        </ul>
+
+        <div className="mt-4 rounded-xl bg-neutral-100 p-3 text-xs text-neutral-700 overflow-x-auto">
+            <pre>{`date,category,amount,note
+        2026-04-10,🛒 Mercado,32.50,Compra semanal
+        2026-04-11,☕️ Café,1.80,Café por la mañana`}</pre>
+        </div>
+        </div>
+
 
         <div className="mt-8 rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm">
           <label className="block text-sm font-medium">Archivo CSV</label>
